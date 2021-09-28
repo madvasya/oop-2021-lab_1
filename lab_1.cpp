@@ -23,13 +23,22 @@ namespace Lab_1 {
 
 		matr.m = m;
 		matr.n = n;
-		
-		insert(matr, 0, 0, 6);
-		insert(matr, 1, 1, 9);
-		insert(matr, 2, 2, 5);
-		insert(matr, 3, 3, 6);
-		insert(matr, 4, 4, 8);
 
+		int elem_number = m * n;
+		int i = 0, elem_m, elem_n, elem_value;
+		do {
+			std::cout << "Ââåäèòå íîìåð ñòðîêè, íîìåð ñòîëáöà è çíà÷åíèå ýëåìåíòà: ";
+			if (getNum(elem_m) < 0 || getNum(elem_n) < 0 || getNum(elem_value) < 0) {
+				break;
+			}
+			if (elem_m < 0 || elem_n < 0) {
+				std::cout << "Îøèáêà! Íîìåð ñòðîêè/ñòîëáöà íå ìîæåò áûòü ìåíüøå íóëÿ!";
+			}
+			else {
+				insert(matr, elem_m, elem_n, elem_value);
+					i++;
+			}
+		}while(i < elem_number);
 		
 		return SUCCESS;
 	}
@@ -84,7 +93,7 @@ namespace Lab_1 {
 		int n = matr.n;
 		Line* tmpline = matr.line; // ÃÅÉÑÊÎÅ ÃÅÉÑÒÂÎ È ÅÁÀÍÎÅ ÃÎÂÍÎ ÁËßÒÜÜÜÜ
 		for (int i = 0; i < m; i++) {  
-			if (tmpline->column && tmpline->m == i) {
+			if (tmpline && tmpline->m == i) {
 				Column* tmpcol = tmpline->column;
 				for (int j = 0; j < n; j++) {
 					if (tmpcol && tmpcol->n == j) {
