@@ -5,8 +5,8 @@
 
 madlagssh
 madlagssh.pub
-*.sln
-*.vcxproj
+lab_1.sln
+lab_1.vcxproj.filters
 *.filters
 
 # User-specific files
