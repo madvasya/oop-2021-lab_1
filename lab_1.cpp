@@ -26,17 +26,24 @@ namespace Lab_1 {
 
 		int elem_number = m * n;
 		int i = 0, elem_m, elem_n, elem_value;
+		std::cout << "Ввод матрицы. Введите не-цифру, чтобы закончить заполнение матрицы. Строки и столбцы нумеруются с 1." << std::endl;
 		do {
 			std::cout << "Введите номер строки, номер столбца и значение элемента: ";
 			if (getNum(elem_m) < 0 || getNum(elem_n) < 0 || getNum(elem_value) < 0) {
 				break;
 			}
-			if (elem_m < 0 || elem_n < 0) {
+			if (elem_m < 1 || elem_n < 1) {
 				std::cout << "Ошибка! Номер строки/столбца не может быть меньше нуля!";
+				continue;
+			}
+
+			else if (elem_m > m || elem_n > n) {
+				std::cout << "Ошибка! Позиция элемента выходит за размеры матрицы!" << std::endl;
+				continue;
 			}
 			else {
-				insert(matr, elem_m, elem_n, elem_value);
-					i++;
+				std::cout << errmsgs[insert(matr, elem_m-1, elem_n-1, elem_value)] << std::endl;
+				i++;
 			}
 		}while(i < elem_number);
 		
@@ -44,7 +51,7 @@ namespace Lab_1 {
 	}
 
 	int insert(Matrix& matr, int m, int n, int value) {
-		if (!matr.line) {//если вставляем першiй элемент (первую строчку)
+		if (!matr.line) {//если вставляем самый першiй элемент (первую строчку)
 			Line* tmpline = new Line;
 			tmpline->m = m;
 			tmpline->next = nullptr;
@@ -57,19 +64,28 @@ namespace Lab_1 {
 		}
 
 		Line* tmpline = matr.line;
-		while (tmpline->next && tmpline->m <= m) {
-			tmpline = tmpline->next;
+		while (tmpline->next && tmpline->next->m <= m) {
+			/*	После этого циклика мы оказываемся либо на строке, после которого вставляем, 
+				либо на строке с таким же номером m (чтобы добавлять в строку) */
+			tmpline = tmpline->next; 
 		}
 		if (tmpline->m == m) { //если вставляем новый элемент в строку
-			Column* tmpcol = new Column;
-			tmpcol->n = n;
-			tmpcol->value = value;
-			tmpcol->next = tmpline->column;
-			tmpline->column = tmpcol;
+			//ищем позицию для вставки - элемент, после которого вставляем:
+			Column* tmpcol = tmpline->column;
+			while (tmpcol->next && tmpcol->next->n <= n) {
+				if (tmpcol->next->n == n)
+					return DUPLICATE;
+				tmpcol = tmpcol->next;
+			}
+			
+			Column* newcol = new Column;
+			newcol->n = n;
+			newcol->value = value;
+			newcol->next = tmpcol->next;
+			tmpcol->next = newcol;
 			return SUCCESS;
 		}
-		else {//запилить нормальный порядок вставки элементов, а то сейчас строчка с m = 1 вставляется после нулевой
-			//долбоебство блять какое-то
+		else { //новая строка с её первый элементом
 			Line* newline = new Line;
 			newline->m = m;
 			newline->column = new Column;

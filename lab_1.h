@@ -7,6 +7,13 @@ enum {
 	MATR_OVERFLOW = 3
 };
 
+static const char* errmsgs[] = {
+	"Успешно",
+	"Неверный ввод!",
+	"Элемент на данной позиции уже существует!",
+	"Переполнение матрицы!"
+};
+
 namespace Lab_1 {
 	struct Column {
 		int n;

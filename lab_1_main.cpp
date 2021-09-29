@@ -16,10 +16,7 @@ int main() {
 
 	rc = input(matr);
 	
-	/*if (!matr) {
-		std::cout << "incorrect data" << std::endl;
-		return 1;
-	}*/
+	std::cout << (errmsgs[rc]) << std::endl;
 	
 	output("Введенная матрица", matr);
 	//std::cout << "Результат: " << res << std::endl;
