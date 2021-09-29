@@ -20,12 +20,12 @@ int main() {
 	
 	output("Введенная матрица", matr);
 
-	/*Matrix result = makevector(matr);
+	Matrix result = makevector(matr);
 	if (result.line)
-		output("Результат: ", matr);*/
+		output("Результат: ", result);
 
 	erase(matr);
-	//erase(result);
+	erase(result);
 
 	return 0;
 }

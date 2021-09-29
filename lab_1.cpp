@@ -185,13 +185,11 @@ namespace Lab_1 {
 		if (!matr.line) {
 			return result;
 		}
-		result.m = matr.n;
-		result.n = 1;
+		result.m = 1;
+		result.n = matr.m;
 
-		int m = matr.m;
-		int n = matr.n;
 		Line* tmpline = matr.line;
-		for (int i = 0; i < m; i++) {
+		for (int i = 0; i < matr.m; i++) {
 			if (tmpline && tmpline->m == i) {
 				Column* tmpcol = tmpline->column;
 				int firstSum = sumdigits(tmpcol->value); //сумма первого элемента
@@ -202,9 +200,10 @@ namespace Lab_1 {
 						strSum += tmpcol->value;
 					tmpcol = tmpcol->next;
 				}
-				insert(result, 1, m, strSum);
+				insert(result, 0, i, strSum);
 				tmpline = tmpline->next;
 			}
 		}
+		return result;
 	}
 }
