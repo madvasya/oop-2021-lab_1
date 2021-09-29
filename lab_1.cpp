@@ -33,7 +33,7 @@ namespace Lab_1 {
 				break;
 			}
 			if (elem_m < 1 || elem_n < 1) {
-				std::cout << "Ошибка! Номер строки/столбца не может быть меньше нуля!";
+				std::cout << "Ошибка! Номер строки/столбца не может быть меньше нуля!" << std::endl;
 				continue;
 			}
 
@@ -77,13 +77,28 @@ namespace Lab_1 {
 					return DUPLICATE;
 				tmpcol = tmpcol->next;
 			}
-			
-			Column* newcol = new Column;
-			newcol->n = n;
-			newcol->value = value;
-			newcol->next = tmpcol->next;
-			tmpcol->next = newcol;
-			return SUCCESS;
+			if (tmpcol->n == n)
+				return DUPLICATE;
+
+			//если нужно вставить элемент в начало списка
+			if(tmpcol->n > n){
+				Column* newcol = new Column;
+				newcol->n = n;
+				newcol->value = value;
+				newcol->next = tmpcol;
+				tmpline->column = newcol;
+				return SUCCESS;
+			}
+
+			//или обычная вставка
+			else {
+				Column* newcol = new Column;
+				newcol->n = n;
+				newcol->value = value;
+				newcol->next = tmpcol->next;
+				tmpcol->next = newcol;
+				return SUCCESS;
+			}
 		}
 		else { //новая строка с её первый элементом
 			Line* newline = new Line;
@@ -94,8 +109,16 @@ namespace Lab_1 {
 			tmpcol->next = nullptr;
 			tmpcol->value = value;
 
-			newline->next = tmpline->next;
-			tmpline->next = newline;
+			//вдруг нужно вставить в начало списка?
+			//тебе лишь бы вставить, дорогой
+			if (tmpline->m > m) {
+				newline->next = tmpline;
+				matr.line = newline;
+			}
+			else {
+				newline->next = tmpline->next;
+				tmpline->next = newline;
+			}
 			return SUCCESS;
 		}
 	}
