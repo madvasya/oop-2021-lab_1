@@ -18,7 +18,7 @@ int main() {
 	
 	std::cout << (errmsgs[rc]) << std::endl;
 	
-	output("Введенная матрица", matr);
+	output("Введенная матрица: ", matr);
 
 	Matrix result = makevector(matr);
 	if (result.line)

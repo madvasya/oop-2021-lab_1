@@ -4,14 +4,16 @@ enum {
 	SUCCESS = 0,
 	WRONG_INPUT = 1,
 	DUPLICATE = 2,
-	MATR_OVERFLOW = 3
+	MATR_OVERFLOW = 3,
+	MEM_OVERFLOW = 4
 };
 
 static const char* errmsgs[] = {
 	"Успешно",
 	"Неверный ввод!",
 	"Элемент на данной позиции уже существует!",
-	"Переполнение матрицы!"
+	"Переполнение матрицы!",
+	"Ошибка выделения памяти"
 };
 
 namespace Lab_1 {

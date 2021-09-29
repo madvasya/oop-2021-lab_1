@@ -42,7 +42,10 @@ namespace Lab_1 {
 				continue;
 			}
 			else {
-				std::cout << errmsgs[insert(matr, elem_m-1, elem_n-1, elem_value)] << std::endl;
+				int rc = insert(matr, elem_m - 1, elem_n - 1, elem_value);
+				std::cout << errmsgs[rc] << std::endl;
+				if (rc == 4)
+					exit(0);
 				i++;
 			}
 		}while(i < elem_number);
@@ -52,10 +55,17 @@ namespace Lab_1 {
 
 	int insert(Matrix& matr, int m, int n, int value) {
 		if (!matr.line) {//если вставляем самый первый элемент (первую строчку)
-			Line* tmpline = new Line;
+			Line* tmpline;
+			try {
+				tmpline = new Line;
+				tmpline->column = new Column;
+			}
+			catch (std::bad_alloc& ba) {
+				return MEM_OVERFLOW;
+			}
+
 			tmpline->m = m;
 			tmpline->next = nullptr;
-			tmpline->column = new Column;
 			tmpline->column->n = n;
 			tmpline->column->next = nullptr;
 			tmpline->column->value = value;
@@ -82,7 +92,13 @@ namespace Lab_1 {
 
 			//если нужно вставить элемент в начало списка
 			if(tmpcol->n > n){
-				Column* newcol = new Column;
+				Column* newcol;
+				try {
+					newcol = new Column;
+				}
+				catch (std::bad_alloc& ba) {
+					return MEM_OVERFLOW;
+				}
 				newcol->n = n;
 				newcol->value = value;
 				newcol->next = tmpcol;
@@ -92,7 +108,13 @@ namespace Lab_1 {
 
 			//или обычная вставка
 			else {
-				Column* newcol = new Column;
+				Column* newcol;
+				try {
+					newcol = new Column;
+				}
+				catch (std::bad_alloc& ba) {
+					return MEM_OVERFLOW;
+				}
 				newcol->n = n;
 				newcol->value = value;
 				newcol->next = tmpcol->next;
@@ -101,9 +123,15 @@ namespace Lab_1 {
 			}
 		}
 		else { //новая строка с её первый элементом
-			Line* newline = new Line;
+			Line* newline;
+			try {
+				newline = new Line;
+				newline->column = new Column;
+			}
+			catch (std::bad_alloc& ba) {
+				return MEM_OVERFLOW;
+			}
 			newline->m = m;
-			newline->column = new Column;
 			Column* tmpcol = newline->column;
 			tmpcol->n = n;
 			tmpcol->next = nullptr;
@@ -128,6 +156,7 @@ namespace Lab_1 {
 			std::cout << "Матрица пуста!" << std::endl;
 			return 1;
 		}
+		std::cout << msg << std::endl;
 		int m = matr.m;
 		int n = matr.n;
 		Line* tmpline = matr.line; 
