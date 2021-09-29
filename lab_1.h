@@ -53,7 +53,7 @@ namespace Lab_1 {
 	int insert(Matrix&, int, int, int);
 	int output(const char*, Matrix);
 	void erase(Matrix&);
-	int makevector(Matrix&);
+	Matrix makevector(Matrix);
 	int sumdigits(int);
 }
 

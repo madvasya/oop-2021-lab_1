@@ -20,9 +20,12 @@ int main() {
 	
 	output("Введенная матрица", matr);
 
-	//std::cout << "Результат: " << makevector(matr) << std::endl;
+	/*Matrix result = makevector(matr);
+	if (result.line)
+		output("Результат: ", matr);*/
 
 	erase(matr);
+	//erase(result);
 
 	return 0;
 }

@@ -51,7 +51,7 @@ namespace Lab_1 {
 	}
 
 	int insert(Matrix& matr, int m, int n, int value) {
-		if (!matr.line) {//если вставляем самый першiй элемент (первую строчку)
+		if (!matr.line) {//если вставляем самый первый элемент (первую строчку)
 			Line* tmpline = new Line;
 			tmpline->m = m;
 			tmpline->next = nullptr;
@@ -145,7 +145,7 @@ namespace Lab_1 {
 				tmpline = tmpline->next;
 			}
 			else {
-				for (int j = 0; j < m; j++) {
+				for (int j = 0; j < n; j++) {
 					std::cout << "0" << " ";
 				}
 			}
@@ -177,5 +177,34 @@ namespace Lab_1 {
 			a /= 10;
 		}
 		return sum;
+	}
+
+	Matrix makevector(Matrix matr) {
+		Matrix result;
+		result.line = nullptr;
+		if (!matr.line) {
+			return result;
+		}
+		result.m = matr.n;
+		result.n = 1;
+
+		int m = matr.m;
+		int n = matr.n;
+		Line* tmpline = matr.line;
+		for (int i = 0; i < m; i++) {
+			if (tmpline && tmpline->m == i) {
+				Column* tmpcol = tmpline->column;
+				int firstSum = sumdigits(tmpcol->value); //сумма первого элемента
+				int strSum = 0; //сумма подходящих чисел строки
+				tmpcol = tmpcol->next;
+				while (tmpcol) {
+					if (sumdigits(tmpcol->value) == firstSum)
+						strSum += tmpcol->value;
+					tmpcol = tmpcol->next;
+				}
+				insert(result, 1, m, strSum);
+				tmpline = tmpline->next;
+			}
+		}
 	}
 }
