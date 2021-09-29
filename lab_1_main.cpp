@@ -19,7 +19,10 @@ int main() {
 	std::cout << (errmsgs[rc]) << std::endl;
 	
 	output("Введенная матрица", matr);
-	//std::cout << "Результат: " << res << std::endl;
+
+	//std::cout << "Результат: " << makevector(matr) << std::endl;
+
 	erase(matr);
+
 	return 0;
 }

@@ -130,7 +130,7 @@ namespace Lab_1 {
 		}
 		int m = matr.m;
 		int n = matr.n;
-		Line* tmpline = matr.line; // ÃÅÉÑÊÎÅ ÃÅÉÑÒÂÎ È ÅÁÀÍÎÅ ÃÎÂÍÎ ÁËßÒÜÜÜÜ
+		Line* tmpline = matr.line; 
 		for (int i = 0; i < m; i++) {  
 			if (tmpline && tmpline->m == i) {
 				Column* tmpcol = tmpline->column;
@@ -168,5 +168,14 @@ namespace Lab_1 {
 			matr.line = matr.line->next;
 			delete tempLine;
 		}
+	}
+
+	int sumdigits(int a) {
+		int sum = 0;
+		while (a > 0) {
+			sum += a % 10;
+			a /= 10;
+		}
+		return sum;
 	}
 }

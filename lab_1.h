@@ -53,7 +53,7 @@ namespace Lab_1 {
 	int insert(Matrix&, int, int, int);
 	int output(const char*, Matrix);
 	void erase(Matrix&);
-	int minmax(Matrix a, double&);
-	double minmax(double a[], int m, int(*f)(double, double));
+	int makevector(Matrix&);
+	int sumdigits(int);
 }
 
