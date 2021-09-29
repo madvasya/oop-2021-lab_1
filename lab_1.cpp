@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 #include "lab_1.h"
 
@@ -60,7 +64,7 @@ namespace Lab_1 {
 				tmpline = new Line;
 				tmpline->column = new Column;
 			}
-			catch (std::bad_alloc& ba) {
+			catch (std::bad_alloc) {
 				return MEM_OVERFLOW;
 			}
 
@@ -96,7 +100,7 @@ namespace Lab_1 {
 				try {
 					newcol = new Column;
 				}
-				catch (std::bad_alloc& ba) {
+				catch (std::bad_alloc) {
 					return MEM_OVERFLOW;
 				}
 				newcol->n = n;
@@ -112,7 +116,7 @@ namespace Lab_1 {
 				try {
 					newcol = new Column;
 				}
-				catch (std::bad_alloc& ba) {
+				catch (std::bad_alloc) {
 					return MEM_OVERFLOW;
 				}
 				newcol->n = n;
@@ -128,7 +132,7 @@ namespace Lab_1 {
 				newline = new Line;
 				newline->column = new Column;
 			}
-			catch (std::bad_alloc& ba) {
+			catch (std::bad_alloc) {
 				return MEM_OVERFLOW;
 			}
 			newline->m = m;
@@ -186,16 +190,15 @@ namespace Lab_1 {
 	void erase(Matrix& matr) {
 		if (!matr.line)
 			return;
-		int m = matr.m;
-		int n = matr.n;
 		while (matr.line) {
-			Line* tempLine = matr.line;
-			/*while (tempLine->first) {
-				Column* tempCol = tempLine->first;
-
-			}*/
-			matr.line = matr.line->next;
-			delete tempLine;
+			Line* tmpline = matr.line;
+			while (tmpline->column) {
+				Column* tmpcol = tmpline->column;
+				tmpline->column = tmpcol->next;
+				delete tmpcol;
+			}
+			matr.line = tmpline->next;
+			delete tmpline;
 		}
 	}
 

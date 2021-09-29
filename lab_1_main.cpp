@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 #include <locale.h>
 #include "lab_1.h"
@@ -27,5 +31,6 @@ int main() {
 	erase(matr);
 	erase(result);
 
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
